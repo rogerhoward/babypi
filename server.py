@@ -20,6 +20,8 @@ app = Flask(__name__)
 @app.route('/click')
 def click():
 
+    print('click!')
+    
     # Create BytesIO stream for image capture
     image_stream = BytesIO()
 
