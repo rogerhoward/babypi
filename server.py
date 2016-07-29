@@ -6,6 +6,7 @@ Run by './server.py'
 Access properties as 'config.property'
 """
 
+import datetime
 from flask import Flask, send_file
 from picamera import PiCamera, PiCameraError
 from io import BytesIO
@@ -26,7 +27,10 @@ def click():
     camera = PiCamera()
     camera.resolution = config.image_resolution
 
+    # Add metadata
     camera.exif_tags['IFD0.Copyright'] = config.exif_copyright
+    camera.exif_tags['EXIF.UserComment'] = 'Created at {}'.format(datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S'))
+
 
     # Capture image to BytesIO stream
     camera.capture(image_stream, config.image_format)
